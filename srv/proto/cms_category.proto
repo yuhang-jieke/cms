@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+option go_package ="./";
+
+package ecommerce;
+
+// ------------------------------------ 
+// Messages
+// ------------------------------------ 
+
+//--------------------------------CMS内容分类表--------------------------------
+message CmsCategory {
+  string title = 1; //分类名称（如：资讯、产品、公告）
+  int64 cate_gory_id = 2;
+  string content = 3;
+}
+
+message AddCmsCategoryReq {
+  string title = 1; //分类名称（如：资讯、产品、公告）
+  int64 cate_gory_id = 2;
+  string content = 3;
+}
+
+message AddCmsCategoryResp {
+  string message =1;
+}
+
+message UpdateCmsCategoryReq {
+  int64 id = 1; //分类ID（主键）
+  string name = 2; //分类名称（如：资讯、产品、公告）
+  string code = 3; //分类编码（唯一标识，如：news、product）
+  int64 sort = 4; //排序值（数字越小越靠前）
+  int64 status = 5; //状态（1=启用，0=禁用）
+}
+
+message UpdateCmsCategoryResp {
+  string message =1;
+}
+
+message DelCmsCategoryReq {
+  int64 id = 1; //id
+}
+
+message DelCmsCategoryResp {
+  string message =1;
+}
+
+message GetCmsCategoryByIdReq {
+  int64 id = 1; //id
+}
+
+message GetCmsCategoryByIdResp {
+  CmsCategory cmsCategory = 1; //cmsCategory
+}
+
+message SearchCmsCategoryReq {
+  int64 page = 1; //page
+ int64 size =2;
+}
+
+message SearchCmsCategoryResp {
+  repeated CmsCategory cmsCategory = 1; //cmsCategory
+}
+
+
+
+// ------------------------------------ 
+// Rpc Func
+// ------------------------------------ 
+
+service EcommerceService{ 
+
+	 //-----------------------CMS内容分类表----------------------- 
+	 rpc AddCmsCategory(AddCmsCategoryReq) returns (AddCmsCategoryResp); 
+	 rpc UpdateCmsCategory(UpdateCmsCategoryReq) returns (UpdateCmsCategoryResp); 
+	 rpc DelCmsCategory(DelCmsCategoryReq) returns (DelCmsCategoryResp); 
+	 rpc GetCmsCategoryById(GetCmsCategoryByIdReq) returns (GetCmsCategoryByIdResp); 
+	 rpc SearchCmsCategory(SearchCmsCategoryReq) returns (SearchCmsCategoryResp); 
+
+}
