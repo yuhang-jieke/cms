@@ -1,4 +1,4 @@
-module cms
+module github.com/yuhang-jieke/cms
 
 go 1.25.1
 
